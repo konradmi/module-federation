@@ -12,9 +12,7 @@ const devConfig = {
   },
   devServer: {
     port: 8082,
-    historyApiFallback: {
-      index: 'index.html'
-    }
+    historyApiFallback: true
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -22,7 +20,8 @@ const devConfig = {
       name: 'container',
       remotes: {
         // 'marketing' matches up with the name we defined in webpack.dev.js in the marketing module
-        marketing: 'marketing@http://localhost:8081/remoteEntry.js'
+        marketing: 'marketing@http://localhost:8081/remoteEntry.js',
+        auth: 'auth@http://localhost:8083/remoteEntry.js'
       },
       // without this section react and react-dom for example would be loaded by 'marketing' and by 'container'.
       // We want only one copy to be loaded
